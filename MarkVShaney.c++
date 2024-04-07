@@ -114,7 +114,7 @@ int main()
     cout<<"\n\nGenerate again? (Y/N)"<<endl;
     cin>>answer;
     if ((answer=="Y")||(answer=="y")||(answer=="YES")) keepTalking=true; else keepTalking=false;
-    } //End-while keeptaling
+    } //End-while keeptalking
 
     output_file.close();
 
