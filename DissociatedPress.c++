@@ -18,8 +18,8 @@ using namespace std;
 // We select a word frame size which will control the algorithm.  Word frames of 3-5 words work best.  You can try a frame size of 1 or 2 but the result will be more "dissociated" or jibberish.
 // Too large a frame size will lead to looping, where the same text is repeated over and over because it can't find other matches (see below).
 // The algorithm: First, we populate the word frame of size X with X words in a row taken from a random location in the source text.
-// Then we search the source text for another instance of those X words in a row.  When found, we add the word which follows the match to the end of the word frame, print it to the screen, 
-// and drop the first word of the frame (giving us a new frame of size X again: ABC --> BCD --> CDE as the algorithm progresses and new matches are fouind) Repeat as long as desired.  
+// Then we search the source text for another instance of those X words in a row.  When found, we add the word which follows the match to the end of the word frame, print it to the screen,
+// and drop the first word of the frame (giving us a new frame of size X again: ABC --> BCD --> CDE as the algorithm progresses and new matches are fouind) Repeat as long as desired.
 
 
 //boost::random::mt19937 mt(random_device{}()); //This gives a better random init if you have a random device, otherwise use the following line which seeds random from timer
@@ -144,7 +144,7 @@ int main()
             matched=true;
             for (size_t i=0;i<FRAME_SIZE;i++) {  //Check each word in the frame, starting with the first, to see if we match our position in the source text
                 matched=matched&&(TextWords[(firstWordInstance+i)%TextSize]==wordFrame[i]); // We AND match with itself and the result of checking the next word so that matched==true only if all words in the frame match the source text
-            }
+            }                                                                               // The index of Textwords is modded with %TextSize so 1) we don't access the vector out-of-bounds if searching near the end, and 2) we effectively wrap from the last word of the text to the beginning if matching near the end
             if (matched) {  //If so, pop the first word off the frame, add the next word that follows from the source text, print it, reset wrap-around counter and matched variable
                 wordFrame.pop_front();
                 wordFrame.push_back(TextWords[(firstWordInstance+FRAME_SIZE)%TextSize]);
